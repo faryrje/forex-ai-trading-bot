@@ -1,0 +1,4 @@
+[project]
+name = "forex-ai-trading-bot"
+version = "0.1.0"
+requires-python = ">=3.12"
