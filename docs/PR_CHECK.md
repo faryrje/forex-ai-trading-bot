@@ -1,0 +1,3 @@
+- Review code
+- Run tests
+- Verify paper trading
