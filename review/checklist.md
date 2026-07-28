@@ -1,0 +1,5 @@
+- [x] Risk layer
+- [x] Tests
+- [x] CI
+- [x] Documentation
+- [ ] Live broker validation
