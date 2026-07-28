@@ -4,6 +4,7 @@ from scanner.market_scanner import MarketScanner
 from ai.scoring import AIScoringEngine
 from trading.paper_account import PaperAccount
 from risk.risk_controls import RiskControls
+from trading.trade_logger import TradeLogger
 
 
 class TradingEngine:
@@ -13,6 +14,8 @@ class TradingEngine:
         self.ai = AIScoringEngine()
         self.account = PaperAccount(10000)
         self.risk = RiskControls()
+        self.logger = TradeLogger()
+
 
     def run_cycle(self, market_data):
 
@@ -25,7 +28,9 @@ class TradingEngine:
                 "status": "NO_SIGNAL"
             }
 
+
         best = opportunities[0]
+
 
         decision = self.ai.calculate({
             "rsi": best["rsi"],
@@ -33,12 +38,14 @@ class TradingEngine:
             "volume": "HIGH"
         })
 
+
         logging.info(
-            "%s %s %s",
+            "%s %s %s%%",
             best["symbol"],
             decision["signal"],
             decision["score"]
         )
+
 
         if decision["signal"] == "BUY":
 
@@ -46,11 +53,18 @@ class TradingEngine:
                 self.account.balance
             ):
 
-                return self.account.open_trade(
+                trade = self.account.open_trade(
                     best["symbol"],
                     "BUY",
                     0.01,
                     best["price"]
                 )
+
+                self.logger.save(
+                    trade
+                )
+
+                return trade
+
 
         return decision
