@@ -13,10 +13,12 @@ class AIScoringEngine:
             score -= 20
 
 
-        if data.get("ema_trend") == "UP":
+        trend = data.get("ema_trend")
+
+        if trend == "UP":
             score += 15
 
-        elif data.get("ema_trend") == "DOWN":
+        elif trend == "DOWN":
             score -= 15
 
 

@@ -27,7 +27,6 @@ class PaperAccount:
         return trade
 
 
-
     def close_trade(
         self,
         index,
@@ -36,22 +35,18 @@ class PaperAccount:
 
         trade = self.positions[index]
 
-
         if trade["side"] == "BUY":
-
             profit = (
                 exit_price - trade["entry"]
             ) * trade["volume"]
 
         else:
-
             profit = (
                 trade["entry"] - exit_price
             ) * trade["volume"]
 
 
         trade["profit"] = profit
-
         self.balance += profit
 
         return trade
